@@ -14,7 +14,8 @@ camera.start_preview()
 camera.rotation = 180
 
 camera.start_preview(alpha=200) # apha value adjust the see-though setting level from 0 to 255
-sleep(5)
-camera.capture('/home/user/Desktop/image.jpg')
+for i in range(5):
+    sleep(5)
+    camera.capture('/home/user/Desktop/image%s.jpg' % i)
 camera.stop_preview()
 
