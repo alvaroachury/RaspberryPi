@@ -11,6 +11,7 @@ camera = PiCamera()
 
 camera.start_preview()
 
+camera.rotation = 180
 camera.start_preview()
 sleep(5)
 camera.stop_preview()
