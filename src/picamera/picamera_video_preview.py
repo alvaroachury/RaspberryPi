@@ -9,12 +9,12 @@ from time import sleep
 
 camera = PiCamera()
 
-camera.start_preview()
-
 camera.rotation = 180
 
 camera.start_preview(alpha=200) # apha value adjust the see-though setting level from 0 to 255
-camera.start_recording('/home/user/Desktop/video.h264')
+camera.resolution = (1920, 1080) # maxim resolution 1920x1080
+camera.start_recording('/home/user/Desktop/video0.h264')
+#camera.framerate = 15
 sleep(5)
 camera.stop_recording()
 camera.stop_preview()
