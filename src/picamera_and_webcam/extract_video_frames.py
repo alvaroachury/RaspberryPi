@@ -1,5 +1,7 @@
 """ Extract frames from video
     source: https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+    
+    edited 08 2023 by Alvaro Achury 
 """
 
 import sys
