@@ -1,5 +1,4 @@
-""" Webcam example using opencv on Raspberri Pi to record video
-    
+""" Webcam image capture example using Raspberri Pi
 """
 
 import cv2
@@ -15,10 +14,17 @@ from pathlib import Path
 def captureImage():
     global cap0 
     ret0, frame0 = cap0.read()
+#     ret1, frame1 = cap1.read()
+#     ret2, frame2 = cap2.read()
+#    frame1r = imutils.resize(frame1, width=frame0.shape[1], height=frame1.shape[0])
+#    concat0 = cv2.hconcat([frame0, frame1r])
+#    concat1 = cv2.hconcat([concat0, frame2])
+#     return frame0, frame1, frame2, ret0, ret1, ret2
     return frame0, ret0
 
+
 # time.sleep(20)
-print(f"*** RUNNING CAMERA RECORDING PROGRAM ***")
+print(f"*** RUNNING CAMERA RECORDING IMAGE PROGRAM ***")
 
 # define file storage location
 resultsPath = os.path.join(str(Path.home()), "Results", date.today().strftime("%Y%m%d"), "video")
@@ -30,37 +36,24 @@ day = date.today()
 t = time.localtime()
 videoName = day.strftime("%Y%m%d") + '-' + time.strftime("%H%M%S",t)
 
-cap0 = cv2.VideoCapture(0)
-
-
-print(f"CAM0: {cap0} ") # CAM0: < cv2.VideoCapture 0xea82b910> , CAM1: < cv2.VideoCapture 0xea82b900> , CAM0: < cv2.VideoCapture 0xea82b910>
+cap0 = cv2.VideoCapture(1)
 
 if not (cap0.isOpened()): print("Could not open video device")
 
-imageWidth = 120#480
-imageHeight = 160#640
-frame_rate = 60
+imageWidth = 480
+imageHeight = 640
 cap0.set(cv2.CAP_PROP_FRAME_WIDTH, imageWidth) # 450 500
 cap0.set(cv2.CAP_PROP_FRAME_HEIGHT, imageHeight) # 315 393
 
-frame0, ret0 = captureImage()
-
-full_file_path = os.path.join(str(resultsPath), f"W_{imageWidth}-H_{imageHeight}-FPS_{frame_rate}-{videoName}_cam0.avi" )
-print(full_file_path)
-outVideo0 = cv2.VideoWriter(full_file_path, cv2.VideoWriter_fourcc(*'XVID'), frame_rate, (imageHeight, imageWidth) )
-
-while True:
+frame_Number = 0
+for i in range (0:1000):
+    if frame_Number < 10: frame_number_string = '0' + str(frame_Number)
+    else: frame_number_string = str(frame_Number)
+    
     frame0, ret0 = captureImage()
-    if ret0 :
-        
-        outVideo0.write(frame0)
-        
-        cv2.imshow('camera0', frame0)
-    if cv2.waitKey(1) & 0xff == ord('q'):
-        break
+    cv2.imshow('camera0', frame0)
+    cv2.imwrite(f"{os.path.join(str(resultsPath), frame_number_string + '_' + videoName + 'cam0.jpg' )}", frame0)
 
-cap0.release()
-outVideo0.release()
 cv2.destroyAllWindows()
 
 
